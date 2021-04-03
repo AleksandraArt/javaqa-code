@@ -8,18 +8,19 @@ public class ProductRepository {
   public void save(Product item) {
     int length = items.length + 1;
     Product[] tmp = new Product[length];
-    System.arraycopy(items, 0, tmp, 0, items.length);
+    System.arraycopy(goods, srcPos 0, tmp, desPos 0, good.length);
+
     int lastIndex = tmp.length - 1;
-    tmp[lastIndex] = item;
-    items = tmp;
+    tmp[lastIndex] = product;
+    good = tmp;
   }
 
-  public Product[] findAll() {
-    return items;
+  public Product[] getAll() {
+    return goods;
   }
 
   public Product findById(int id) {
-    for (Product item : items) {
+    for (Product item : goods) {
       if (item.getId() == id) {
         return item;
       }
@@ -28,15 +29,19 @@ public class ProductRepository {
   }
 
   public void removeById(int id) {
-    int length = items.length - 1;
+    if (this.findById(id) ==null) {
+      throw new NotFoundException("Element with id: " + id + "not found");
+    }
+
+    int length = goods.length - 1;
     Product[] tmp = new Product[length];
     int index = 0;
-    for (Product item : items) {
+    for (Product item : goods) {
       if (item.getId() != id) {
         tmp[index] = item;
         index++;
       }
     }
-    items = tmp;
+    goods = tmp;
   }
 }
